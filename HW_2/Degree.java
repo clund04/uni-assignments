@@ -1,24 +1,21 @@
-package dev.m3s.programming2.homework3;
+package dev.m3s.programming2.homework2;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Degree {
     private static final int MAX_COURSES = 50;
     private int count = 0;
     private String degreeTitle = ConstantValues.NO_TITLE;
     private String titleOfThesis = ConstantValues.NO_TITLE;
-    private List<StudentCourse> myCourses = new ArrayList<StudentCourse>();
+    private StudentCourse[] myCourses = new StudentCourse[MAX_COURSES];
 
-    public List<StudentCourse> getCourses() {
+    public StudentCourse[] getCourses() {
         return myCourses;
     }
 
-    public void addStudentCourses(List<StudentCourse> courses) {
+    public void addStudentCourses(StudentCourse[] courses) {
         if (courses != null) {
             for (StudentCourse course : courses) {
-                if (count < MAX_COURSES &&
-                course != null) {
+                if (count < MAX_COURSES) {
                     addStudentCourse(course);
                 }
             }
@@ -27,8 +24,8 @@ public class Degree {
     
     public boolean addStudentCourse(StudentCourse course) {
         if (course != null && count < MAX_COURSES) {
-            myCourses.add(course);
-            this.count++;
+            myCourses[count] = course;
+            count++;
             return true;
         }
     return false;
@@ -109,25 +106,6 @@ public class Degree {
             System.out.println(course);
             }
         }
-    }
-
-    public List<Double> getGPA(int type) {
-        double sum = 0.0;
-        int count = 0;
-
-        for (StudentCourse c : myCourses) {
-            if (c.getCourse().isNumericGrade()) {
-                sum += c.getGradeNum();
-                count++;
-            }
-        }
-        List<Double> listGPA = new ArrayList<>();
-        double avg = sum / count;
-        listGPA.add(avg);
-        listGPA.add((double)count);
-        listGPA.add(sum);
-        
-        return listGPA;
     }
 
     public int getCount() {
